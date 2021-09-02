@@ -1,5 +1,16 @@
 module OutlierDetectionTest
+    using Test
+    using OutlierDetection
+    using Random:MersenneTwister
 
-# Write your package code here.
+    import OutlierDetectionInterface
+    const OD = OutlierDetectionInterface
 
+    import MLJBase
+    const MLJ = MLJBase
+
+    export TestData, test_detector
+
+    include("generate_data.jl")
+    include("test_detector.jl")
 end
