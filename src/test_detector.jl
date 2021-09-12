@@ -16,15 +16,15 @@ function test_detector(detector::OD.Detector, data::TestData)
         mlj_raw_test = MLJ.transform(mlj_raw, rows=data.test_idx)
 
         # MLJ probabilistic detector with table input
-        mlj_prob = is_supervised ? MLJ.machine(probabilistic(detector), data.x_table, data.y_cat) :
-                                   MLJ.machine(probabilistic(detector), data.x_table)
+        mlj_prob = is_supervised ? MLJ.machine(ProbabilisticDetector(detector), data.x_table, data.y_cat) :
+                                   MLJ.machine(ProbabilisticDetector(detector), data.x_table)
         MLJ.fit!(mlj_prob, rows=data.train_idx)
         mlj_prob_train = MLJ.report(mlj_prob).detector.scores
         mlj_prob_test = MLJ.transform(mlj_prob, rows=data.test_idx)
 
         # MLJ deterministic detector with table input
-        mlj_det = is_supervised ? MLJ.machine(deterministic(detector), data.x_table, data.y_cat) :
-                                  MLJ.machine(deterministic(detector), data.x_table)
+        mlj_det = is_supervised ? MLJ.machine(DeterministicDetector(detector), data.x_table, data.y_cat) :
+                                  MLJ.machine(DeterministicDetector(detector), data.x_table)
         MLJ.fit!(mlj_det, rows=data.train_idx)
         mlj_det_train = MLJ.report(mlj_det).detector.scores
         mlj_det_test = MLJ.transform(mlj_det, rows=data.test_idx)
