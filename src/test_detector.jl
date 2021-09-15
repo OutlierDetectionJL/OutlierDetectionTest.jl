@@ -4,8 +4,8 @@ function test_detector(detector::OD.Detector, data::TestData)
 
         # OutlierDetection detector with matrix input
         raw_model, raw_train = is_supervised ?
-            OD.fit(detector, data.x_raw[:, data.train_idx], data.y_raw[data.train_idx]) :
-            OD.fit(detector, data.x_raw[:, data.train_idx])
+            OD.fit(detector, data.x_raw[:, data.train_idx], data.y_raw[data.train_idx]; verbosity=0) :
+            OD.fit(detector, data.x_raw[:, data.train_idx]; verbosity=0)
         raw_test = OD.transform(detector, raw_model, data.x_raw[:, data.test_idx])
 
         # MLJ plain detector with table input
