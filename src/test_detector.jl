@@ -20,14 +20,14 @@ function test_detector(detector::OD.Detector, data::TestData)
                                    MLJ.machine(ProbabilisticDetector(detector), data.x_table)
         MLJ.fit!(mlj_prob, rows=data.train_idx)
         mlj_prob_train = MLJ.report(mlj_prob).detector.scores
-        mlj_prob_test = MLJ.transform(mlj_prob, rows=data.test_idx)
+        mlj_prob_test = from_univariate_finite(MLJ.predict(mlj_prob, rows=data.test_idx))
 
         # MLJ deterministic detector with table input
         mlj_det = is_supervised ? MLJ.machine(DeterministicDetector(detector), data.x_table, data.y_cat) :
                                   MLJ.machine(DeterministicDetector(detector), data.x_table)
         MLJ.fit!(mlj_det, rows=data.train_idx)
         mlj_det_train = MLJ.report(mlj_det).detector.scores
-        mlj_det_test = MLJ.transform(mlj_det, rows=data.test_idx)
+        mlj_det_test = from_categorical(MLJ.predict(mlj_det, rows=data.test_idx))
 
         @testset "outputs have appropriate dimensions" begin
             @test length(raw_train) ==
