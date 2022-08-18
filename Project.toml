@@ -1,7 +1,7 @@
 name = "OutlierDetectionTest"
 uuid = "66620973-d34b-445b-a614-4040704cad69"
 authors = ["David Muhr <muhrdavid@gmail.com> and contributors"]
-version = "0.2.0"
+version = "0.2.1"
 
 [deps]
 MLJBase = "a7f614a8-145f-11e9-1d2a-a57a1082229d"
